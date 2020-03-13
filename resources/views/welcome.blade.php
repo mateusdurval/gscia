@@ -47,7 +47,7 @@
                             <td><a href="" class="btn-floating"><i class="material-icons">edit</i></a></td>
                         </tr>
                         <tr>
-                            <td>Mateus</td>
+                            <td>Mateuss</td>
                             <td>Durval</td>
                             <td>05/03/2000</td>
                             <td>863.243.164.04</td>
