@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <title>Editar Usuário</title>
+        <title>Cadastrar Usuário</title>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,14 +13,15 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{{URL::asset('css/style.css')}}" rel="stylesheet" type="text/css" />
 
-        <!-- jQuery Mask Plugin -->
+        <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+        <!-- Plugin jQuery Mask Plugin -->
         <script src="{{URL::asset('mask/src/jquery.mask.js')}}"></script>
-
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
         <!-- Font Awesome -->
         <script src="https://kit.fontawesome.com/f8b439a839.js" crossorigin="anonymous"></script>
 
-        <!-- Mask -->
+        <!-- Masks -->
         <script>
             $(document).ready(function(){
                 $('#cpf').mask('000.000.000-00');
@@ -75,7 +76,7 @@
         </nav>
         <!-- Título "Cadastrar Usuário" -->
        <div class="container" style="margin-top: 1%;">
-            <h1>Editar Usuário</h1>
+            <h1>Cadastrar Usuário</h1>
        </div>
 
        <!-- Breadcrumb -->
@@ -83,67 +84,110 @@
             <div aria-label="breadcrumb">
                 <ol class="breadcrumb">
                 <li class="breadcrumb-item" aria-current="page"><a href="/" style="color: rgba(0,0,0,0.8);">Painel</a></li>
-                    <li class="breadcrumb-item active">Editar</li>
+                    <li class="breadcrumb-item active">Cadastrar</li>
                 </ol>
             </div>
         </div>
 
+        
+        <div class="invalid-feedback">
+          Please choose a username.
+        </div>
+        
+
         <div class="container">
             <div class="col-md-12">
-                <form action="{{route('home.update', $usuario->id)}}" method="POST" enctype="multipart/form-data">
+                <form action="/home/store" method="post" enctype="multipart/form-data" id="validate-form">
                     {{csrf_field()}}
-                    @method('PUT')
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="nome">Nome:</label>
-                            <input type="text" class="form-control form-control-sm" name="nome" id="nome" placeholder="Ex.: Mateus Durval Ferreira" value="{{$usuario->nome}}" autocomplete="off">
+                            <input type="text" class="form-control form-control-sm" name="nome" id="nome" placeholder="Ex.: Mateus Durval Ferreira" autocomplete="off" autofocus="">
                         </div>
 
                         <div class="form-group col-md-3 offset-md-1">
                             <label for="cpf">CPF:</label>
-                            <input type="text" class="form-control form-control-sm" name="cpf" id="cpf" placeholder="Ex.: 000.000.000-00" value="{{$usuario->cpf}}" autocomplete="off">
-                        </div>
-                        
+                            <input type="text" class="form-control form-control-sm" name="cpf" id="cpf" placeholder="Ex.: 000.000.000-00" autocomplete="off">
+                            <span id="ServerSideCPF"></span>
+                        </div>                        
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="nascimento">Data de Nascimento:</label>
-                            <input type="date" class="form-control form-control-sm" name="nascimento" id="nascimento" value="{{$usuario->nascimento}}" autocomplete="off">
+                            <input type="date" class="form-control form-control-sm" name="nascimento" id="nascimento" autocomplete="off">
                         </div>
 
                         <div class="form-group col-md-3 offset-md-1">
                             <label for="rg">RG:</label>
-                            <input type="text" class="form-control form-control-sm" name="rg" id="rg" placeholder="Ex.: 00.000.000-00" value="{{$usuario->rg}}" autocomplete="off">
+                            <input type="text" class="form-control form-control-sm" name="rg" id="rg" placeholder="Ex.: 00.000.000-00" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="cep">CEP:</label>
-                            <input type="text" class="form-control form-control-sm" name="cep" id="cep" placeholder="Ex.: 00000-000" value="{{$usuario->cep}}" autocomplete="off">
+                            <input type="text" class="form-control form-control-sm" name="cep" id="cep" placeholder="Ex.: 00000-000" autocomplete="off">
                         </div>
                         <div class="form-group col-md-3 offset-md-1">
                             <label for="logradouro">Rua:</label>
-                            <input type="text" class="form-control form-control-sm" name="logradouro" id="logradouro" placeholder="Ex.: Rua Alameda do Bosque.." value="{{$usuario->logradouro}}" autocomplete="off">
+                            <input type="text" class="form-control form-control-sm" name="logradouro" id="logradouro" placeholder="Ex.: Rua Alameda do Bosque.." autocomplete="off">
                         </div>
-                        
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="numero">Nº:</label>
-                            <input type="number" class="form-control form-control-sm" name="numero" id="numero" placeholder="Ex.: 100" value="{{$usuario->numero}}" autocomplete="off">
+                            <input type="number" class="form-control form-control-sm" name="numero" id="numero" placeholder="Ex.: 100" autocomplete="off">
                         </div>
                         <div class="form-group col-md-3 offset-md-1">
                             <label for="complemento">Complemento:</label>
-                            <input type="text" class="form-control form-control-sm" name="complemento" id="complemento" placeholder="Ex.: casa/andar/apartamento" value="{{$usuario->complemento}}" autocomplete="off">
+                            <input type="text" class="form-control form-control-sm" name="complemento" id="complemento" placeholder="Ex.: casa/andar/apartamento" autocomplete="off">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-sm btn-success btnEdit" data-id="{{$usuario->id}}">Atualizar</button>
+                    <button type="submit" class="btn btn-sm btn-success">Cadastrar</button>
+                    <button type="reset" class="btn btn-outline-secondary btn-sm">Limpar <i class="fas fa-broom"></i></button>
                     <a href="/" class="btn btn-sm btn-dark">Cancelar</a>
                 </form>
             </div>
         </div>
+
+        <script>
+            //$("#cpf").on('change', function(e) {
+                //let cpf = $(this).val();
+                //$.get('/home/teste/'+cpf, function(message) {
+                    //if(message == "not") {
+                        //$("#cpf").removeClass("is-valid");
+                        //$("#cpf").addClass("is-invalid");
+                    //} else {
+                        //$("#cpf").removeClass("is-invalid");
+                        //$("#cpf").addClass("is-valid");
+                    //}
+                //});
+            //});
+ 
+            $('#validate-form').bootstrapValidator({
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    nome: {
+                        validators: {
+                            stringLength: {
+                                min: 5,
+                                message: 'Insira um nome válido',
+                                $("#nome").addClass("iv-invalid")
+                            },
+                            notEmpty: {
+                                message: 'Please Enter your Full name'
+                            }
+                        }
+                    },
+                }
+            });
+
+        </script>
     </body>
 </html>

@@ -1,0 +1,34 @@
+* {
+    max-width: 100%;
+    box-sizing: border-box;
+    font-size: 100%;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: #ccc;
+}
+
+.color-th-table {
+    color: rgba(0,0,0,0.8);
+}
+
+.btn-dark {
+    background-color: #363636;
+    color: white;
+}
+
+.input-search {
+
+}
+
+#background-nav {
+    background-color: rgba(0,0,0,0.8);
+}
+
+
+
