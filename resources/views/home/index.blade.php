@@ -63,24 +63,42 @@
 
         <!-- Título "Usuários" -->
        <div class="container" style="margin-top: 1%;">
-            <h1>Usuários</h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Usuários</h1>
+                </div>
+            </div>
        </div>
 
         <!-- Breadcrumb -->
         <div class="container" style="margin-top: 1%;">
-            <div aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page">Painel</li>
-                    <li class="breadcrumb-item"><a href="{{route('home.create')}}" style="color: rgba(0,0,0,0.8);">Cadastrar</a></li>
-                </ol>
+            <div class="row">
+                <div class="col-md-12">
+                    <div aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Painel</li>
+                            <li class="breadcrumb-item"><a href="{{route('home.create')}}" style="color: rgba(0,0,0,0.8);">Cadastrar</a></li>
+                        </ol>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Botões de Cadastro e Relatórios -->
         <div class="container">
-            <div class="col-md-3 offset-md-9" style="text-align: right; padding: 0px;">
-                <a href="" class="btn btn-sm btn-dark"><i class="fas fa-sticky-note"></i> Relatório</a>
-                <a href="{{route('home.create')}}" class="btn btn-sm btn-primary">Adicionar <i class="fas fa-user-plus"></i></a>
+            <div class="row">
+                <div class="col-md-auto offset-md-7 " style=" padding: 0;">
+                    <form action="">
+                        <input type="text" class="form-control form-control-sm" placeholder="Faça uma busca">
+                    </form>
+                </div>
+                <div class="col-md-auto boder" style="padding-left: 1px;">
+                    <button type="submit" class="btn btn-sm btn-dark"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="col-md-auto border " style=" padding: 0">
+                    <a href="" class="btn btn-sm btn-dark"><i class="fas fa-sticky-note"></i> Relatório</a>
+                    <a href="{{route('home.create')}}" class="btn btn-sm btn-success">Adicionar <i class="fas fa-user-plus"></i></a>
+                </div>
             </div>
         </div>
 
@@ -94,14 +112,15 @@
         <!-- Título de Usuários Cadastrados -->
         <div class="container">
             <div class="col-md-auto">
-                <h4 style="text-align: center;">Usuários Cadastrados ({{$total}})</h4>
+                <h4 style="text-align: center; margin-top: 2%;">Usuários Cadastrados ({{$total}})</h4>
             </div>
         </div>
 
         <!-- Foreach Table -->
         <div class="container">
-            <div class="col-md-12" style="padding: 0; margin-top: 2%;">
-                <table class="table table-sm table-striped table-hover">
+                
+            <div class="col-md-12" style="padding: 0; margin-top: 2%;">                
+                <table class="table table-sm table-hover">
                     <thead>
                         <tr>
                             <th class="color-th-table">#ID</th>
@@ -117,7 +136,7 @@
                         @foreach($usuarios as $usuario)
                         <tr>
                             <td>{{$usuario->id}}</td>
-                            <td><a href="" class="btn btn-sm btn-info"><i class="far fa-address-card"></i> {{$usuario->nome}}</a></td>
+                            <td><a href="" class="btn btn-sm btn-primary"><i class="far fa-address-card"></i> {{$usuario->nome}}</a></td>
                             <td>{{$usuario->cep}}</td>
                             <td>{{$usuario->cpf}}</td>
                             <td>{{$usuario->nascimento}}</td>

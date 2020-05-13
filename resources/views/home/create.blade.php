@@ -88,65 +88,82 @@
                 </ol>
             </div>
         </div>
-
         
-        <div class="invalid-feedback">
-          Please choose a username.
-        </div>
-        
-
         <div class="container">
             <div class="col-md-12">
                 <form action="/home/store" method="post" enctype="multipart/form-data" id="validate-form">
                     {{csrf_field()}}
                     <div class="form-row">
                         <div class="form-group col-md-3">
-                            <label for="nome">Nome:</label>
+                            <label for="nome">Nome *</label>
                             <input type="text" class="form-control form-control-sm" name="nome" id="nome" placeholder="Ex.: Mateus Durval Ferreira" autocomplete="off" autofocus="">
                         </div>
 
                         <div class="form-group col-md-3 offset-md-1">
-                            <label for="cpf">CPF:</label>
+                            <label for="cpf">CPF *</label>
                             <input type="text" class="form-control form-control-sm" name="cpf" id="cpf" placeholder="Ex.: 000.000.000-00" autocomplete="off">
                             <span id="ServerSideCPF"></span>
-                        </div>                        
+                        </div>     
+
+                        <div class="form-group col-md-3 offset-md-1">
+                            <label for="rg">RG *</label>
+                            <input type="text" class="form-control form-control-sm" name="rg" id="rg" placeholder="Ex.: 00.000.000-00" autocomplete="off">
+                        </div>                   
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-3">
-                            <label for="nascimento">Data de Nascimento:</label>
+                            <label for="nascimento">Data de Nascimento *</label>
                             <input type="date" class="form-control form-control-sm" name="nascimento" id="nascimento" autocomplete="off">
                         </div>
 
                         <div class="form-group col-md-3 offset-md-1">
-                            <label for="rg">RG:</label>
-                            <input type="text" class="form-control form-control-sm" name="rg" id="rg" placeholder="Ex.: 00.000.000-00" autocomplete="off">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <label for="cep">CEP:</label>
+                            <label for="cep">CEP *</label>
                             <input type="text" class="form-control form-control-sm" name="cep" id="cep" placeholder="Ex.: 00000-000" autocomplete="off">
                         </div>
+
                         <div class="form-group col-md-3 offset-md-1">
-                            <label for="logradouro">Rua:</label>
-                            <input type="text" class="form-control form-control-sm" name="logradouro" id="logradouro" placeholder="Ex.: Rua Alameda do Bosque.." autocomplete="off">
+                            <label for="logradouro">Logradouro *</label>
+                            <input type="text" class="form-control form-control-sm" name="logradouro" id="logradouro" placeholder="Ex.: Rua Alameda do Bosque" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-3">
-                            <label for="numero">Nº:</label>
+                            <label for="numero">Número</label>
                             <input type="number" class="form-control form-control-sm" name="numero" id="numero" placeholder="Ex.: 100" autocomplete="off">
                         </div>
+
                         <div class="form-group col-md-3 offset-md-1">
-                            <label for="complemento">Complemento:</label>
-                            <input type="text" class="form-control form-control-sm" name="complemento" id="complemento" placeholder="Ex.: casa/andar/apartamento" autocomplete="off">
-                        </div>
+                            <label for="bairro">Bairro *</label>
+                            <input type="text" class="form-control form-control-sm" name="bairro" id="bairro" placeholder="Ex.: Placaford" autocomplete="off">
+                        </div>    
+
+                        <div class="form-group col-md-3 offset-md-1">
+                            <label for="estado">UF *</label>
+                            <input type="text" class="form-control form-control-sm" name="estado" id="estado" placeholder="Ex.: Bahia" autocomplete="off">
+                        </div>                    
                     </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="cidade">Cidade *</label>
+                            <input type="text" class="form-control form-control-sm" name="cidade" id="cidade" placeholder="Ex.: Salvador" autocomplete="off">
+                            <div class="valid-feedback">
+                                Parece bom!
+                            </div>
+                            <div class="invalid-feedback">
+                                Insira uma Cidade válida.
+                            </div>
+                        </div>  
+
+                        <div class="form-group col-md-3 offset-md-1">
+                            <label for="complemento">Complemento</label>
+                            <input type="text" class="form-control form-control-sm" name="complemento" id="complemento" placeholder="Ex.: Casa 02, 3º Andar" autocomplete="off">
+                        </div>                       
+                    </div>
+
                     <button type="submit" class="btn btn-sm btn-success">Cadastrar</button>
-                    <button type="reset" class="btn btn-outline-secondary btn-sm">Limpar <i class="fas fa-broom"></i></button>
                     <a href="/" class="btn btn-sm btn-dark">Cancelar</a>
                 </form>
             </div>
@@ -165,29 +182,23 @@
                     //}
                 //});
             //});
- 
-            $('#validate-form').bootstrapValidator({
-                feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                    nome: {
-                        validators: {
-                            stringLength: {
-                                min: 5,
-                                message: 'Insira um nome válido',
-                                $("#nome").addClass("iv-invalid")
-                            },
-                            notEmpty: {
-                                message: 'Please Enter your Full name'
-                            }
-                        }
-                    },
-                }
-            });
+        </script>
 
+        <script>
+            $("#cep").focusout(function() {
+                $.ajax({
+                    url: 'https://viacep.com.br/ws/'+$(this).val()+'/json/unicode/',
+                    dataType: 'json',
+                    success: function(resposta) {
+                        $("#logradouro").val(resposta.logradouro);
+                        $("#complemento").val(resposta.complemento);
+                        $("#bairro").val(resposta.bairro);
+                        $("#estado").val(resposta.uf);
+                        $("#cidade").val(resposta.localidade);
+                        $("#complemento").val(resposta.complemento);
+                    }
+                });
+            });
         </script>
     </body>
 </html>
